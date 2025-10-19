@@ -1,7 +1,8 @@
 import cv2
 import numpy as np
 
-from Praktichna_2 import shape
+
+
 
 cap = cv2.VideoCapture(0)
 
@@ -26,15 +27,18 @@ while True:
 
     contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     for cnt in contours:
-        area = cv2.contourArea(cnt)
-        if area > 1000:
-            x, y, w, h = cv2.boundingRect(cnt)
-            cv2.rectangle(frame, (2,2), (600,600), (0, 255, 0), 2)
-            perimeter = cv2.arcLength(cnt, True)
-            cv2.putText(frame, "detected", (20,20), cv2.FONT_HERSHEY_SIMPLEX, 0.6,(0, 0, 0), 1)
-        if area < 1000:
-            cv2.rectangle(frame, (2,2), (600,640), (0, 0, 255), 2)
-            cv2.putText(frame, "not detected", (20,20), cv2.FONT_HERSHEY_SIMPLEX, 0.6,(0, 0, 0), 1)
+            area = cv2.contourArea(cnt)
+        # while True:
+            if area > 2000:
+            # x, y, w, h = cv2.boundingRect(cnt)
+                cv2.rectangle(frame, (10,10), (630,470), (0, 255, 0), 2)
+                perimeter = cv2.arcLength(cnt, True)
+                cv2.putText(frame, "detected", (20,20), cv2.FONT_HERSHEY_SIMPLEX, 0.6,(0, 0, 0), 1)
+            # else:
+            if area < 2000:
+                cv2.rectangle(frame, (10,10), (630,470), (0, 0, 255), 2)
+                cv2.putText(frame, "not detected", (20,20), cv2.FONT_HERSHEY_SIMPLEX, 0.6,(0, 0, 0), 1)
+                perimeter = cv2.arcLength(cnt, True)
 
 
     cv2.imshow("video", frame)
@@ -43,6 +47,5 @@ while True:
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
      break
-
 cap.release()
 cv2.destroyAllWindows()
